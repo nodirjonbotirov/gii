@@ -1,0 +1,10 @@
+<?php
+
+namespace {{dtoNamespace}};
+
+class {{dtoClassName}}
+{
+    public function __construct()
+    {
+    }
+}
