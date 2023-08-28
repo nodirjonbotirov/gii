@@ -105,7 +105,7 @@ class Api
 
     public function addDTO(): void
     {
-        $path = app_path("DTO/Api/") . $this->capitalizedFullPath;
+        $path = app_path("Data/Api/") . $this->capitalizedFullPath;
         File::ensureDirectoryExists($path); // Check if the controller directory exists; if not, create it.
 
         $stubContent = File::get($this->stubDirectory . '/api-dto.stub');
@@ -113,11 +113,11 @@ class Api
         foreach ($this->requestActions as $action) {
             $methodName = $action == 'index' ? '' : ucfirst($action);
             $replacers = [
-                "{{dtoNamespace}}" => $this->asNamespace("DTO/Api"),
-                "{{dtoClassName}}" => $this->resource . $methodName . 'DTO',
+                "{{dtoNamespace}}" => $this->asNamespace("Data/Api"),
+                "{{dtoClassName}}" => $this->resource . $methodName . 'Data',
             ];
 
-            self::generateCode($stubContent, $replacers, $methodName . 'DTO', $path);
+            self::generateCode($stubContent, $replacers, $methodName . 'Data', $path);
         }
     }
 
