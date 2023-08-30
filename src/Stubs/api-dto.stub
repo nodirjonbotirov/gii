@@ -1,6 +1,7 @@
 <?php
 
 namespace {{dtoNamespace}};
+
 use Botiroff\Gii\Classes\Data;
 
 class {{dtoClassName}} extends Data
