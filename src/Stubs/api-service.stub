@@ -2,7 +2,7 @@
 
 namespace {{serviceNamespace}};
 
-use Botiroff\Gii\Result\ActionResult;
+use Botiroff\Gii\Classes\ActionResult;
 
 class {{serviceClassName}}
 {
