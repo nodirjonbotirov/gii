@@ -1,10 +1,9 @@
 <?php
 
 namespace {{dtoNamespace}};
+use Botiroff\Gii\Classes\Data;
 
-class {{dtoClassName}}
+class {{dtoClassName}} extends Data
 {
-    public function __construct()
-    {
-    }
+    // properties
 }

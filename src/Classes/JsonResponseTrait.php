@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Botiroff\Gii\Traits;
+namespace Botiroff\Gii\Classes;
 
 use Illuminate\Http\JsonResponse;
 

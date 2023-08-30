@@ -1,6 +1,6 @@
 <?php
 
-namespace Botiroff\Gii\Result;
+namespace Botiroff\Gii\Classes;
 
 class ActionResult
 {
