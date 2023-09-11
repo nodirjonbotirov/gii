@@ -30,11 +30,26 @@ class Data
 
                 if (array_key_exists($propertyName, $props)) {
                     $actualValue = $props[$propertyName];
-                    $expectedType = $propertyType->getName();
                     $actualType = $dataHelper->determineType($actualValue);
 
-                    if ($actualType !== $expectedType && !($propertyType->allowsNull() && $actualType === 'NULL')) {
-                        throw new DataException("Property '$propertyName' requires type '$expectedType' but got '$actualType'");
+                    if (!method_exists($propertyType, 'getTypes')) {
+                        $expectedType = $propertyType->getName();
+
+                        if ($actualType !== $expectedType && !($propertyType->allowsNull() && $actualType === 'NULL')) {
+                            throw new DataException("Property '$propertyName' requires type '$expectedType' but got '$actualType'");
+                        }
+                    } else {
+                        $allow = false;
+                        $expectedPropertyTypes = '';
+                        foreach ($propertyType->getTypes() as $type) {
+                            $expectedPropertyTypes .= $type->getName() . ', ';
+                            if ($actualType == $type->getName() || ($actualType == 'NULL' && $type->getName() == 'null')) {
+                                $allow = true;
+                            }
+                        }
+                        if (!$allow)
+                            throw new DataException("Property '$propertyName' requires '$expectedPropertyTypes' type  but got '$actualType'");
+
                     }
 
                     $childClass->$propertyName = $actualValue;
@@ -50,9 +65,7 @@ class Data
 
     private function determineType($value): string
     {
-        if (is_numeric($value)) {
-            return str_contains($value, '.') ? 'float' : 'int';
-        } elseif (is_bool($value)) {
+        if (is_bool($value)) {
             return 'bool';
         } elseif (is_array($value)) {
             return 'array';
