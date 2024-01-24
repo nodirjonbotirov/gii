@@ -2,7 +2,7 @@
 
 namespace {{dtoNamespace}};
 
-use Botiroff\Gii\Classes\Data;
+use Spatie\LaravelData\Data;
 
 class {{dtoClassName}} extends Data
 {
