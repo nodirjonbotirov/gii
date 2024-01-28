@@ -4,6 +4,7 @@
 namespace Botiroff\Gii\Commands;
 
 use Botiroff\Gii\Services\Api;
+use Botiroff\Gii\Services\Web;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
@@ -30,7 +31,7 @@ class Gii extends Command
      */
     public function handle(): int
     {
-        $options = [1 => 'Api', 2 => 'Web'];
+        $options = [1 => 'Api', 2 => 'Web', 3 => 'Console'];
 
         $selectedOption = $this->choice('What do you want to work towards?:', $options);
         $resourcePath = $this->ask("Type resource namespace:");
@@ -38,6 +39,12 @@ class Gii extends Command
         $this->info('> You selected: ' . $selectedOption);
         if ($selectedOption == "Api")
             $this->api($resourcePath);
+
+        if ($selectedOption == "Web")
+            $this->web($resourcePath);
+
+        if ($selectedOption == "Console")
+            $this->info('Soon!');
         return CommandAlias::SUCCESS;
     }
 
@@ -63,5 +70,25 @@ class Gii extends Command
         $this->info('> Data transfer objects generated!');
     }
 
+    /**
+     * @param string $resourcePath
+     * @return void
+     */
+    public function web(string $resourcePath): void
+    {
+        (new Web($resourcePath))->addController();
+        $this->info('> Controller generated!');
 
+        (new Web($resourcePath))->addService();
+        $this->info('> Service generated!');
+
+        (new Web($resourcePath))->addRequest();
+        $this->info('> Requests generated!');
+
+        (new Web($resourcePath))->addViewModel();
+        $this->info('> ViewModels generated!');
+
+        (new Web($resourcePath))->addDTO();
+        $this->info('> Data transfer objects generated!');
+    }
 }

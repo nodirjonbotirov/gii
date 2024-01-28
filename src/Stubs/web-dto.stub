@@ -1,0 +1,10 @@
+<?php
+
+namespace {{dtoNamespace}};
+
+use Spatie\LaravelData\Data;
+
+class {{dtoClassName}} extends Data
+{
+    // properties
+}

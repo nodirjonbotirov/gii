@@ -1,0 +1,18 @@
+<?php
+
+namespace {{serviceNamespace}};
+
+use Botiroff\Gii\Classes\ActionResult;
+
+class {{serviceClassName}}
+{
+    public function index(): ActionResult
+    {
+        try {
+
+            return (new ActionResult())->setSuccess(null);
+        } catch (\Exception $e) {
+            return (new ActionResult())->setError($e->getMessage());
+        }
+    }
+}
