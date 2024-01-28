@@ -13,6 +13,7 @@ class Web
     public string $capitalizedPath;
     public string $capitalizedFullPath;
     public array $requestActions = ['index', 'store', 'update'];
+    public array $webActions = ['index', 'create', 'edit'];
 
     public function __construct(string $fullPath)
     {
@@ -84,7 +85,7 @@ class Web
 
         $stubContent = File::get($this->stubDirectory . '/web-view-model.stub');
 
-        foreach ($this->requestActions as $action) {
+        foreach ($this->webActions as $action) {
             $methodName = $action == 'index' ? '' : ucfirst($action);
             $replacers = [
                 "{{viewModelNamespace}}" => $this->asNamespace("ViewModels/Web"),
