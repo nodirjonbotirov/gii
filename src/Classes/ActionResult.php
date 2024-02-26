@@ -2,7 +2,7 @@
 
 namespace Botiroff\Gii\Classes;
 
-class ActionResult
+final class ActionResult
 {
     public bool $success = true;
 
@@ -12,18 +12,19 @@ class ActionResult
 
     public mixed $data;
 
-    public function setError(string $message, int $code = 500, mixed $data = null): static
+    public static function error(string $message, int $code = 500, mixed $data = null): ActionResult
     {
-        $this->success = false;
-        $this->message = $message;
-        $this->data = $data;
-        $this->code = $code;
-        return $this;
+        return (new ActionResult)($data, $code, $message, false);
     }
 
-    public function setSuccess(mixed $data, int $code = 200, string $message = 'Success!'): static
+    public static function success(mixed $data, int $code = 200, string $message = 'Success!'): ActionResult
     {
-        $this->success = true;
+        return (new ActionResult)($data, $code, $message);
+    }
+
+    public function __invoke(mixed $data, int $code, string $message, bool $success = true): ActionResult
+    {
+        $this->success = $success;
         $this->data = $data;
         $this->message = $message;
         $this->code = $code;

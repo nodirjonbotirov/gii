@@ -19,7 +19,7 @@ trait JsonResponseTrait
             'success' => true,
             'error' => null,
             'data' => $data,
-        ], $code);
+        ], $code, options: JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -34,6 +34,6 @@ trait JsonResponseTrait
             'success' => false,
             'error' => $message,
             'data' => null,
-        ], $code);
+        ], $code, options: JSON_UNESCAPED_UNICODE);
     }
 }
