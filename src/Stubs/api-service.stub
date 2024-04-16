@@ -10,9 +10,9 @@ class {{serviceClassName}}
     {
         try {
 
-            return (new ActionResult())->setSuccess(null);
+            return ActionResult::success(null);
         } catch (\Exception $e) {
-            return (new ActionResult())->setError($e->getMessage());
+            return ActionResult::error($e);
         }
     }
 }
