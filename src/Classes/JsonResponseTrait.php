@@ -26,13 +26,18 @@ trait JsonResponseTrait
      * Error response for controller
      * @param mixed $message
      * @param int $code
+     * @param int|null $internal_error_code
      * @return JsonResponse
      */
-    protected function errorResponse(mixed $message, int $code = 500): JsonResponse
+    protected function errorResponse(mixed $message, int $code = 500, int $internal_error_code = null): JsonResponse
     {
         return response()->json([
             'success' => false,
-            'error' => $message,
+            'error' => [
+                'message' => $message,
+                'code' => $code,
+                'internal_error_code' => $internal_error_code,
+            ],
             'data' => null,
         ], $code, options: JSON_UNESCAPED_UNICODE);
     }

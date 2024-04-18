@@ -37,8 +37,12 @@ class Gii extends Command
         $resourcePath = $this->ask("Type resource namespace:");
 
         $this->info('> You selected: ' . $selectedOption);
-        if ($selectedOption == "Api")
-            $this->api($resourcePath);
+        if ($selectedOption == "Api") {
+            $variants = ['Controller', 'Service', 'Request', 'Resource', 'DataObject'];
+            $choices = $this->choice('What is your name?', $variants, 0, null, true);
+
+            $this->api($resourcePath, $choices);
+        }
 
         if ($selectedOption == "Web")
             $this->web($resourcePath);
@@ -50,24 +54,31 @@ class Gii extends Command
 
     /**
      * @param string $resourcePath
+     * @param array $choices
      * @return void
      */
-    public function api(string $resourcePath): void
+    public function api(string $resourcePath, array $choices): void
     {
-        (new Api($resourcePath))->addController();
-        $this->info('> Controller generated!');
-
-        (new Api($resourcePath))->addService();
-        $this->info('> Service generated!');
-
-        (new Api($resourcePath))->addRequest();
-        $this->info('> Requests generated!');
-
-        (new Api($resourcePath))->addResource();
-        $this->info('> Resources generated!');
-
-        (new Api($resourcePath))->addDTO();
-        $this->info('> Data transfer objects generated!');
+        if (in_array('Controller', $choices)) {
+            (new Api($resourcePath))->addController();
+            $this->info('> Controller generated!');
+        }
+        if (in_array('Service', $choices)) {
+            (new Api($resourcePath))->addService();
+            $this->info('> Service generated!');
+        }
+        if (in_array('Request', $choices)) {
+            (new Api($resourcePath))->addRequest();
+            $this->info('> Requests generated!');
+        }
+        if (in_array('Resource', $choices)) {
+            (new Api($resourcePath))->addResource();
+            $this->info('> Resources generated!');
+        }
+        if (in_array('DataObject', $choices)) {
+            (new Api($resourcePath))->addDTO();
+            $this->info('> Data transfer objects generated!');
+        }
     }
 
     /**
